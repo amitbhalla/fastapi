@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:13.4-alpine
+    env_file:
+      - ./env_files/db.env
+    volumes:
+      - fapipostgresdb:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4:5.6
+    env_file:
+      - ./env_files/pgadmin.env
+    ports:
+      - 5050:80
+    volumes:
+      - fapipgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  fapipostgresdb:
+  fapipgadmin:
